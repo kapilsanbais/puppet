@@ -31,7 +31,12 @@ node default {
 }
 node "puppetagent.example.com"{
 
-include apache::install
+class {"apache::service":
+      require => Class["apache::install"],
+}
+
+class {"apache::install":
+	}
 
 
 apache::vhost{"linux":
@@ -49,5 +54,4 @@ apache::vhost{"redhat":
 	webname => "www.redhat.conf",
 	}
 
-include apache::service
 }
